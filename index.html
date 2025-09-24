@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Urban Aura — Modern • Traditional • Premium</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #fff;
+      --fg: #000;
+      --glass-bg: rgba(0, 0, 0, 0.04);
+      --glass-border: rgba(0, 0, 0, 0.12);
+      --hover-scale: 1.06;
+      --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      --focus-ring: 0 0 0 2px var(--fg);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: "Inter", system-ui, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    .brand-name {
+      font-family: "Playfair Display", serif;
+      font-weight: 600;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: var(--glass-bg);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 1rem 2rem;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo-img {
+      height: 40px;
+      object-fit: contain;
+    }
+
+    .brand-name {
+      font-size: clamp(1.25rem, 4vw, 1.5rem);
+      font-weight: 500;
+    }
+
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      font-size: 0.875rem;
+      align-items: center;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .icon {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    nav a {
+      font-weight: 500;
+      font-size: 0.95rem;
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--fg);
+      transition: var(--transition);
+    }
+
+    nav a:hover::after,
+    nav a:focus::after {
+      width: 100%;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      height: 80vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-bottom: 4rem;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+    }
+
+    .hero-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(1.05);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 1.5rem;
+      max-width: 900px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.25rem, 6vw, 4rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeIn 0.7s forwards 0.3s;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 3vw, 1.25rem);
+      font-weight: 300;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeIn 0.7s forwards 0.6s;
+    }
+
+    .marketplace-badges {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .badge {
+      border: 1px solid var(--fg);
+      padding: 0.35rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    /* Sections */
+    main {
+      padding: 0 2rem 4rem;
+    }
+
+    section {
+      margin-bottom: 4rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .intro-text {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+      font-size: clamp(1rem, 3vw, 1.125rem);
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* Category Grid */
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .category-card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      cursor: default;
+      transform: translateZ(0);
+      transition: var(--transition);
+      background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 50%, #d0d0d0 100%);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .category-card:focus-visible {
+      outline: var(--focus-ring);
+      outline-offset: 4px;
+    }
+
+    .category-icon {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 1rem;
+      fill: var(--fg);
+    }
+
+    .category-label {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .category-note {
+      font-size: 0.875rem;
+      font-weight: 300;
+    }
+
+    .category-card:hover,
+    .category-card:focus {
+      transform: scale(var(--hover-scale)) translateY(-4px);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0,0,0,0.2);
+    }
+
+    /* Marketplaces */
+    .marketplaces {
+      text-align: center;
+    }
+
+    .marketplaces p {
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--glass-bg);
+      border-top: 1px solid var(--glass-border);
+      padding: 2.5rem 2rem 1.5rem;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 300;
+    }
+
+    .footer-contact {
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .footer-contact .contact-item {
+      justify-content: center;
+    }
+
+    .copyright {
+      opacity: 0.7;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero h1,
+    .hero p {
+      transform: translateY(10px);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem;
+      }
+
+      .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav ul {
+        margin-top: 0.75rem;
+        justify-content: center;
+        width: 100%;
+      }
+
+      .hero {
+        min-height: 500px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .contact-row {
+        gap: 0.75rem;
+        font-size: 0.8rem;
+      }
+
+      nav ul {
+        gap: 1rem;
+      }
+
+      .marketplace-badges {
+        gap: 0.5rem;
+      }
+
+      .badge {
+        padding: 0.25rem 0.7rem;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo-container">
+        <img
+          src="https://i.ibb.co/5WgBH0ZY/Screenshot-2025-09-24-135646.png"
+          alt="Urban Aura Logo"
+          class="logo-img"
+          loading="lazy"
+        />
+        <span class="brand-name">Urban Aura</span>
+      </div>
+
+      <div class="contact-row">
+        <div class="contact-item">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Hyderabad, Telangana 500016
+        </div>
+        <div class="contact-item">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <a href="mailto:suraramesh46@gmail.com">suraramesh46@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          <a href="tel:+918019802281">+91 8019802281</a>
+        </div>
+        <div class="contact-item">
+          <a
+            href="https://wa.me/918019802281?text=I%20visited%20Urban%20Aura%20website%20-%20I%20want%20help%20with%20orders%20and%20catalog."
+            aria-label="Contact Urban Aura on WhatsApp"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg class="icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#categories">Categories</a></li>
+          <li><a href="#marketplaces">Marketplaces</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero" id="home">
+    <!-- Hero image: composite of man, woman, luxury saree -->
+    <img
+      src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2048&q=80"
+      alt="Editorial fashion photography featuring modern Indian clothing"
+      class="hero-img"
+      loading="lazy"
+    />
+    <div class="hero-content">
+      <h1>Urban Aura — Modern • Traditional • Premium</h1>
+      <p>Wholesale • Manufacturer • Marketplace Sellers</p>
+      <div class="marketplace-badges">
+        <span class="badge">Meesho</span>
+        <span class="badge">Flipkart</span>
+        <span class="badge">Amazon</span>
+        <span class="badge">Ajio</span>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section>
+      <div class="intro-text">
+        <p>
+          Urban Aura sources premium Indian-inspired clothing directly from manufacturers and lists on leading marketplaces. We serve retailers and online shoppers through partner platforms.
+        </p>
+      </div>
+    </section>
+
+    <section id="categories">
+      <h2 class="section-title">Collections</h2>
+      <div class="categories">
+        <!-- Men -->
+        <div class="category-card" tabindex="0">
+          <svg class="category-icon" viewBox="0 0 24 24">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+          </svg>
+          <div class="category-label">Men</div>
+          <div class="category-note">Starting from ₹199 (representational)</div>
+        </div>
+
+        <!-- Women -->
+        <div class="category-card" tabindex="0">
+          <svg class="category-icon" viewBox="0 0 24 24">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+          </svg>
+          <div class="category-label">Women</div>
+          <div class="category-note">Starting from ₹199 (representational)</div>
+        </div>
+
+        <!-- Children -->
+        <div class="category-card" tabindex="0">
+          <svg class="category-icon" viewBox="0 0 24 24">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+          </svg>
+          <div class="category-label">Children</div>
+          <div class="category-note">Starting from ₹199 (representational)</div>
+        </div>
+
+        <!-- Luxury Sarees -->
+        <div class="category-card" tabindex="0">
+          <svg class="category-icon" viewBox="0 0 24 24">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+          </svg>
+          <div class="category-label">Luxury Sarees</div>
+          <div class="category-note">Starting from ₹199 (representational)</div>
+        </div>
+
+        <!-- Accessories -->
+        <div class="category-card" tabindex="0">
+          <svg class="category-icon" viewBox="0 0 24 24">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+          </svg>
+          <div class="category-label">Accessories</div>
+          <div class="category-note">Starting from ₹199 (representational)</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="marketplaces" class="marketplaces">
+      <h2 class="section-title">Available On</h2>
+      <p>Find our collections on these marketplaces.</p>
+      <div class="marketplace-badges">
+        <span class="badge">Meesho</span>
+        <span class="badge">Flipkart</span>
+        <span class="badge">Amazon</span>
+        <span class="badge">Ajio</span>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="footer-contact">
+      <div class="contact-item">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Hyderabad, Telangana 500016
+      </div>
+      <div class="contact-item">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        <a href="mailto:suraramesh46@gmail.com">suraramesh46@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        <a href="tel:+918019802281">+91 8019802281</a>
+      </div>
+      <div class="contact-item">
+        <a
+          href="https://wa.me/918019802281?text=I%20visited%20Urban%20Aura%20website%20-%20I%20want%20help%20with%20orders%20and%20catalog."
+          aria-label="Contact Urban Aura on WhatsApp"
+          target="_blank"
+          rel="noopener"
+        >
+          <svg class="icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="copyright">
+      © 2025 Urban Aura — Hyderabad, Telangana 500016 • All images credited to Unsplash / Pexels.
+    </div>
+  </footer>
+
+  <!-- No external JS needed beyond basic behavior -->
+</body>
+</html>
